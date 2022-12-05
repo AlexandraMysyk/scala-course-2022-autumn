@@ -22,15 +22,15 @@ object BooleanOperatorsSpecification extends Properties("Boolean Operators"):
 
   property("and") = forAll { (pair: (Boolean, Boolean)) =>
     val (left, right) = pair
-    
-    and(left, right) == left && right
+
+    and(left, right) == (left && right)
   }
 
   property("or") = forAll { (pair: (Boolean, Boolean)) =>
     val (left, right) = pair
-    
-    or(left, right) == left || right
-  }   
+
+    or(left, right) == (left || right)
+  }
 
 end BooleanOperatorsSpecification
 
@@ -47,17 +47,28 @@ object FermatNumbersSpecification extends Properties("Fermat Numbers"):
   }
 
   property("fermatNumber") = forAll { (n: Int) =>
-    fermatNumber(n) == Math.pow(2, Math.pow(2, 2)) + 1
-  }  
+    fermatNumber(n) == Math.pow(2, Math.pow(2, n)) + 1
+  }
 
 end FermatNumbersSpecification
 
-object LookAndAaSequenceSpecification extends Properties("Look-and-say Sequence"):
+object LookAndSaySequenceSpecification extends Properties("Look-and-say Sequence"):
   import `Look-and-say Sequence`._
   import arbitraries.given Arbitrary[Int]
 
-  property("fermatNumber") = forAll { (n: Int) =>
-    lookAndSaySequenceElement(n) == 42
-  }  
+  property("Look-and-say Sequence") = forAll { (n: Int) =>
+    typeOf(`Look-and-say Sequence`(n))==BigInt
+  }
 
-end LookAndAaSequenceSpecification
+end LookAndSaySequenceSpecification
+object KolakoskiSequenceSpecification extends Properties(name=`Kolakovski Sequence`):
+  import `Kolakovski Sequence`._
+  import arbitraries.given Arbitrary[Int]
+
+  property("Kolakoski number") = forAll { (n:Int)=>
+    kolakoskiNumber(n)==1 or 2;
+  }
+end KolakoskiSequenceSpecification
+
+
+

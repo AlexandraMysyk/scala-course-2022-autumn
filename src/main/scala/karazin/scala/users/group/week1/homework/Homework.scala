@@ -14,7 +14,7 @@ import scala.annotation.tailrec
  * Requirements:
  * a) the function should not use embedded boolean operations
  * b) the functions should be eager
- * c) the function should use `if` expression and `true` and `false` boolean literals 
+ * c) the function should use `if` expression and `true` and `false` boolean literals
  *
  * 2. Fermat Numbers
  * Required task
@@ -40,27 +40,90 @@ object Homework :
 
   object `Boolean Operators` :
 
-    def not(b: Boolean): Boolean = ??? // here is my greatest solution
+def not(b: Boolean): Boolean =
+  if b then false
+  else true
 
-    def and(left: Boolean, right: Boolean): Boolean = ???
+def and(left: Boolean, right: Boolean): Boolean =
+  if not(left) then false
+  else if not(right) then false
+  else true
 
-    def or(left: Boolean, right: Boolean): Boolean = ???
+def or(left: Boolean, right: Boolean): Boolean =
+  if left then true
+  else if right then true
+  else false
 
-  end `Boolean Operators`
+end `Boolean Operators`
 
-  object `Fermat Numbers` :
+object `Fermat Numbers` :
 
-    val multiplication: (BigInt, BigInt) => BigInt = ???
+  val multiplication: (BigInt, BigInt) => BigInt =
+    val multiplicationRec:(BigInt,BigInt,BigInt) =>BigInt=
+      (a,b,res)=>
+        if b<1 then res
+        else multiplicationRec(a,b-1,res+a)
+    (a, b)=>
+      if b > 0 then multiplicationRec(a,b,0)
+      else -1*multiplicationRec(a,b.abs,0)
 
-    val power: (BigInt, BigInt) => BigInt = ???
+  //assume that the exponent is a positive number
+  val power: (BigInt, BigInt) => BigInt =
+    val powerRec:(BigInt,BigInt,BigInt)=> BigInt=
+      (a,b,res)=>
+        if b<1 then res
+        else powerRec(a,b,multiplication(a,res))
+    (a,b)=>
+      powerRec(a,b,1)
 
-    val fermatNumber: Int => BigInt = ???
+  val fermatNumber: Int => BigInt =
+    n=>
+      power(2,power(2,n))+1
 
-  end `Fermat Numbers`
+end `Fermat Numbers`
 
-  object `Look-and-say Sequence` :
-    val lookAndSaySequenceElement: Int => BigInt = ???
+//extremely unsure about this function
+//added recursion instead of var
+object `Look-and-say Sequence` :
+  val lookAndSaySequenceElement: Int => Array[Int] =
+    val countInner:(Array[Int],Int,Int,Int)=>Array[Int]=
+      (acc,i,k,j)=>
+        if acc(i)!=acc(i+1) then acc.appended[k,k+1](acc(i),j)
+        else countInner(acc,i+1,k,j+1)
+    val countOuter:(Array[Int],Int,Int)=>Int=
+      (acc,i,k)=>
+        if(acc(i)==0) then return 1
+        else countinner(acc,i,k,0)
+    val f:(Int,Array[Int],Int)=>Array[Int]=
+      (n,acc,counter)=>
+        if counter==n then acc
+        else{
+          countOuter(acc,0,0);
+          f(n,newAcc,counter+1);
+        }
+    n=>
+      f(n,Array(1),1);
 
-  end `Look-and-say Sequence`
+
+
+end `Look-and-say Sequence`
+
+object `Kolakoski Sequence`:
+  val kolakoskiNumber: Int => Int=
+    val count:(Array[Int],Int,Int,Int)=>Array[Int]=
+    (arr,counter,i,a)=>
+      if i>=arr(counter) then arr.add(a)
+      else count(arr,counter-1,i,a)
+    val f :(Int,Int,Array[Int])=>Int=
+      (n,counter,arr[2*n])=>
+      if arr(n) == 1 or arr(n)==2 then arr(n)
+      else
+        if counter%2==1 then a=1
+        else a=2
+        count(arr,counter-1,0,a);
+        f(n,counter+1,arr);
+    n=>
+      f(n,1,Array(1));
+end `Kolakoski Sequence`
 
 end Homework
