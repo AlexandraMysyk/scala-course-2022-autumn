@@ -72,35 +72,36 @@ object NonEmptySpecification extends Properties("NonEmpty"):
   }
 
   property("equal") = forAll { (nonEmpty: NonEmpty) ⇒
-    nonEmpty == nonEmpty
+    nonEmpty == NonEmpty
   }
 
   property("include") = forAll { (nonEmpty: NonEmpty, element: Int) ⇒
-    false
+    !this.equals(Empty);
   }
 
   property("contains") = forAll { (nonEmpty: NonEmpty, element: Int) ⇒
-    false
+    !forAll (nonEmpty.contains(element)==false)
   }
 
   property("remove") = forAll { (nonEmpty: NonEmpty, element: Int) ⇒
-    false
+    (this.remove(element)).contains(element)==false
   }
 
   property("union") = forAll { (nonEmpty: NonEmpty, set: IntSet) ⇒
-    false
+    (nonEmpty ∪ set) !=Empty
   }
 
   property("intersection") = forAll { (nonEmpty: NonEmpty, set: IntSet) ⇒
-    false
+    nonEmpty ∩ set == set∩ nonEmpty
   }
 
   property("complement") = forAll { (nonEmpty: NonEmpty, set: IntSet) ⇒
-    false
+    if(nonEmpty==set)
+    nonEmpty ∖ set ==Empty
   }
 
   property("disjunctive") = forAll { (nonEmpty: NonEmpty, set: IntSet) ⇒
-    false
+    nonEmpty  ∆ set == set ∆ nonEmpty
   }
 
 end NonEmptySpecification
