@@ -5,7 +5,7 @@ import Prop.{forAll, propBoolean}
 import Homework._
 import karazin.scala.users.group.week1.homework.arbitraries
 
-object HomeworkSpecification extends Properties("Homework"):
+object HomeworkSpecification extends Properties("Homework") :
 
   include(BooleanOperatorsSpecification)
   include(FermatNumbersSpecification)
@@ -13,7 +13,8 @@ object HomeworkSpecification extends Properties("Homework"):
 
 end HomeworkSpecification
 
-object BooleanOperatorsSpecification extends Properties("Boolean Operators"):
+object BooleanOperatorsSpecification extends Properties("Boolean Operators") :
+
   import `Boolean Operators`._
 
   property("not") = forAll { (b: Boolean) =>
@@ -34,7 +35,8 @@ object BooleanOperatorsSpecification extends Properties("Boolean Operators"):
 
 end BooleanOperatorsSpecification
 
-object FermatNumbersSpecification extends Properties("Fermat Numbers"):
+object FermatNumbersSpecification extends Properties("Fermat Numbers") :
+
   import `Fermat Numbers`._
   import arbitraries.given Arbitrary[Int]
 
@@ -52,22 +54,17 @@ object FermatNumbersSpecification extends Properties("Fermat Numbers"):
 
 end FermatNumbersSpecification
 
-object LookAndSaySequenceSpecification extends Properties("Look-and-say Sequence"):
+object LookAndSaySequenceSpecification extends Properties("Look-and-say Sequence") :
+
   import `Look-and-say Sequence`._
   import arbitraries.given Arbitrary[Int]
 
   property("Look-and-say Sequence") = forAll { (n: Int) =>
-    typeOf(`Look-and-say Sequence`(n))==BigInt
+    typeOf(`Look-and-say Sequence`(n)) == BigInt
   }
 
 end LookAndSaySequenceSpecification
-object KolakoskiSequenceSpecification extends Properties(name=`Kolakovski Sequence`):
-  import `Kolakovski Sequence`._
-  import arbitraries.given Arbitrary[Int]
 
-  property("Kolakoski number") = forAll { (n:Int)=>
-    kolakoskiNumber(n)==1 or 2;
-  }
 end KolakoskiSequenceSpecification
 
 
