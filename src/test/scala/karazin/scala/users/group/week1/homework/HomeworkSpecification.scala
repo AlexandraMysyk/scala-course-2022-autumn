@@ -5,7 +5,7 @@ import Prop.{forAll, propBoolean}
 import Homework._
 import karazin.scala.users.group.week1.homework.arbitraries
 
-object HomeworkSpecification extends Properties("Homework"):
+object HomeworkSpecification extends Properties("Homework") :
 
   include(BooleanOperatorsSpecification)
   include(FermatNumbersSpecification)
@@ -13,7 +13,8 @@ object HomeworkSpecification extends Properties("Homework"):
 
 end HomeworkSpecification
 
-object BooleanOperatorsSpecification extends Properties("Boolean Operators"):
+object BooleanOperatorsSpecification extends Properties("Boolean Operators") :
+
   import `Boolean Operators`._
 
   property("not") = forAll { (b: Boolean) =>
@@ -22,19 +23,20 @@ object BooleanOperatorsSpecification extends Properties("Boolean Operators"):
 
   property("and") = forAll { (pair: (Boolean, Boolean)) =>
     val (left, right) = pair
-    
-    and(left, right) == left && right
+
+    and(left, right) == (left && right)
   }
 
   property("or") = forAll { (pair: (Boolean, Boolean)) =>
     val (left, right) = pair
-    
-    or(left, right) == left || right
-  }   
+
+    or(left, right) == (left || right)
+  }
 
 end BooleanOperatorsSpecification
 
-object FermatNumbersSpecification extends Properties("Fermat Numbers"):
+object FermatNumbersSpecification extends Properties("Fermat Numbers") :
+
   import `Fermat Numbers`._
   import arbitraries.given Arbitrary[Int]
 
@@ -47,17 +49,23 @@ object FermatNumbersSpecification extends Properties("Fermat Numbers"):
   }
 
   property("fermatNumber") = forAll { (n: Int) =>
-    fermatNumber(n) == Math.pow(2, Math.pow(2, 2)) + 1
-  }  
+    fermatNumber(n) == Math.pow(2, Math.pow(2, n)) + 1
+  }
 
 end FermatNumbersSpecification
 
-object LookAndAaSequenceSpecification extends Properties("Look-and-say Sequence"):
+object LookAndSaySequenceSpecification extends Properties("Look-and-say Sequence") :
+
   import `Look-and-say Sequence`._
   import arbitraries.given Arbitrary[Int]
 
-  property("fermatNumber") = forAll { (n: Int) =>
-    lookAndSaySequenceElement(n) == 42
-  }  
+  property("Look-and-say Sequence") = forAll { (n: Int) =>
+    typeOf(`Look-and-say Sequence`(n)) == BigInt
+  }
 
-end LookAndAaSequenceSpecification
+end LookAndSaySequenceSpecification
+
+end KolakoskiSequenceSpecification
+
+
+
