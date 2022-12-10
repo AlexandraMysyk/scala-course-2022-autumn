@@ -1,6 +1,6 @@
 package karazin.scala.users.group.week2.homework
 
-import scala.annotation.targetName
+import scala.annotation.{tailrec, targetName}
 import scala.math.{abs, signum}
 
 object Homework:
@@ -35,7 +35,7 @@ object Homework:
 
     @targetName("addition")
     infix def +(that: Rational): Rational =
-      Rational(this.numer*that.denom+that.numer*this.denom,this.denom*that.denom)
+      Rational(this.numer * that.denom + that.numer * this.denom, this.denom * that.denom)
 
     @targetName("negation")
     infix def unary_- : Rational =
@@ -43,31 +43,31 @@ object Homework:
 
     @targetName("substraction")
     infix def -(that: Rational): Rational =
-      Rational(this.numer*that.denom-that.numer*this.denom,this.denom*that.denom)
+      Rational(this.numer * that.denom - that.numer * this.denom, this.denom * that.denom)
 
     @targetName("multiplication")
     infix def *(that: Rational): Rational =
-      Rational(this.numer*that.numer,this.denom*that.denom)
+      Rational(this.numer * that.numer, this.denom * that.denom)
 
     @targetName("devision")
     infix def /(that: Rational): Rational =
-      Rational(this.numer*that.denom,this.denom*that.numer)
+      Rational(this.numer * that.denom, this.denom * that.numer)
 
     override def toString: String = s"${this.numer}/${this.denom}"
 
+    @tailrec
     private def gcd(a: Int, b: Int): Int =
       if b == 0 then a else gcd(b, a % b)
 
     private lazy val g = gcd(abs(x), y)
 
     override def equals(other: Any): Boolean =
-      if other.getClass!=Rational then false
-      else
-        if other.numer!=this.numer then false
-        else
-          if other.denom!=this.denom then false
-          else true
+      if other.getClass != Rational then false
+      else if other.numer != this.numer then false
+      else if other.denom != this.denom then false
+      else true
 
   end Rational
+
 
 end Homework

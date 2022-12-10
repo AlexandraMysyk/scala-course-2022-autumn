@@ -7,6 +7,7 @@ import karazin.scala.users.group.week2.homework.arbitraries
 import Homework._
 import utils._
 
+
 object HomeworkSpecification extends Properties("Homework"):
   import arbitraries.{given Arbitrary[Int], given Arbitrary[Rational]}
 
