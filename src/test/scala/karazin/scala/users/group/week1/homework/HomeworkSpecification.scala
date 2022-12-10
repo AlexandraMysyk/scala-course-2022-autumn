@@ -66,7 +66,7 @@ object LookAndSaySequenceSpecification extends Properties("Look-and-say Sequence
 end LookAndSaySequenceSpecification
 
 
-end KolakoskiSequenceSpecification
+
 
 
 
