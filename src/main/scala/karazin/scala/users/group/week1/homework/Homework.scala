@@ -46,14 +46,12 @@ def not(b: Boolean): Boolean =
   else true
 
 def and(left: Boolean, right: Boolean): Boolean =
-  if not(left) then false
-  else if not(right) then false
-  else true
+  if left then right
+  else false
 
 def or(left: Boolean, right: Boolean): Boolean =
-  if left then true
-  else if right then true
-  else false
+  if not(left) then right
+  else true
 
 end `Boolean Operators`
 
@@ -83,27 +81,26 @@ object `Fermat Numbers`:
 
 end `Fermat Numbers`
 
-//extremely unsure about this function
-//added recursion instead of var
+//didn't check
 object `Look-and-say Sequence`:
-  val lookAndSaySequenceElement: Int => Array[Int] =
-    val countInner: (Array[Int], Int, Int, Int) => Array[Int] =
-      (acc, i, k, j) =>
-        if acc(i) != acc(i + 1) then acc.appended[k, k + 1](acc(i), j)
-        else countInner(acc, i + 1, k, j + 1)
-    val countOuter: (Array[Int], Int, Int) => Int =
-      (acc, i, k) =>
-        if acc(i) == 0 then return 1
-        else countinner(acc, i, k, 0)
-    val f: (Int, Array[Int], Int) => Array[Int] =
-      (n, acc, counter) =>
-        if counter == n then acc
+  val lookAndSaySequenceElement: Int => BigInt =
+    val countInner: (String, Int, Int, Int) => String =
+      (str, i, k, j) =>
+        if str(i) != str(i + 1) then str.appended(str(i), j)
+        else countInner(str, i + 1, k, j + 1)
+    val countOuter: (String, Int, Int) => Int =
+      (str, i, k) =>
+        if str(i) == 0 then return 1
+        else countinner(str, i, k, 0).toInt
+    val f: (Int, String, Int) => String =
+      (n, str, counter) =>
+        if counter == n then str
         else {
-          countOuter(acc, 0, 0)
-          f(n, newAcc, counter + 1)
+          countOuter(str, 0, 0)
+          f(n, str, counter + 1)
         }
     n =>
-      f(n, Array(1), 1);
+      f(n, "1", 1);
 
 
 end `Look-and-say Sequence`
