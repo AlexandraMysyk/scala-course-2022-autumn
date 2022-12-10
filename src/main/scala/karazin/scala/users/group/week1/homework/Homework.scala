@@ -1,6 +1,7 @@
 package karazin.scala.users.group.week1.homework
 
 import scala.annotation.tailrec
+
 /**
  * Preface
  * Implement all the things with ???.
@@ -36,94 +37,91 @@ import scala.annotation.tailrec
  * For more details @see https://en.wikipedia.org/wiki/Kolakoski_sequence
  */
 
-object Homework :
+object Homework:
 
-  object `Boolean Operators` :
+  object `Boolean Operators`:
 
 def not(b: Boolean): Boolean =
   if b then false
   else true
 
 def and(left: Boolean, right: Boolean): Boolean =
-  if not(left) then false
-  else if not(right) then false
-  else true
+  if left then right
+  else false
 
 def or(left: Boolean, right: Boolean): Boolean =
-  if left then true
-  else if right then true
-  else false
+  if not(left) then right
+  else true
 
 end `Boolean Operators`
 
-object `Fermat Numbers` :
+object `Fermat Numbers`:
 
   val multiplication: (BigInt, BigInt) => BigInt =
-    val multiplicationRec:(BigInt,BigInt,BigInt) =>BigInt=
-      (a,b,res)=>
-        if b<1 then res
-        else multiplicationRec(a,b-1,res+a)
-    (a, b)=>
-      if b > 0 then multiplicationRec(a,b,0)
-      else -1*multiplicationRec(a,b.abs,0)
+    val multiplicationRec: (BigInt, BigInt, BigInt) => BigInt =
+      (a, b, res) =>
+        if b < 1 then res
+        else multiplicationRec(a, b - 1, res + a)
+    (a, b) =>
+      if b > 0 then multiplicationRec(a, b, 0)
+      else -1 * multiplicationRec(a, b.abs, 0)
 
   //assume that the exponent is a positive number
   val power: (BigInt, BigInt) => BigInt =
-    val powerRec:(BigInt,BigInt,BigInt)=> BigInt=
-      (a,b,res)=>
-        if b<1 then res
-        else powerRec(a,b,multiplication(a,res))
-    (a,b)=>
-      powerRec(a,b,1)
+    val powerRec: (BigInt, BigInt, BigInt) => BigInt =
+      (a, b, res) =>
+        if b < 1 then res
+        else powerRec(a, b, multiplication(a, res))
+    (a, b) =>
+      powerRec(a, b, 1)
 
   val fermatNumber: Int => BigInt =
-    n=>
-      power(2,power(2,n))+1
+    n =>
+      power(2, power(2, n)) + 1
 
 end `Fermat Numbers`
 
-//extremely unsure about this function
-//added recursion instead of var
-object `Look-and-say Sequence` :
-  val lookAndSaySequenceElement: Int => Array[Int] =
-    val countInner:(Array[Int],Int,Int,Int)=>Array[Int]=
-      (acc,i,k,j)=>
-        if acc(i)!=acc(i+1) then acc.appended[k,k+1](acc(i),j)
-        else countInner(acc,i+1,k,j+1)
-    val countOuter:(Array[Int],Int,Int)=>Int=
-      (acc,i,k)=>
-        if(acc(i)==0) then return 1
-        else countinner(acc,i,k,0)
-    val f:(Int,Array[Int],Int)=>Array[Int]=
-      (n,acc,counter)=>
-        if counter==n then acc
-        else{
-          countOuter(acc,0,0);
-          f(n,newAcc,counter+1);
+//didn't check
+object `Look-and-say Sequence`:
+  val lookAndSaySequenceElement: Int => BigInt =
+    val countInner: (String, Int, Int, Int) => String =
+      (str, i, k, j) =>
+        if str(i) != str(i + 1) then str.appended(str(i), j)
+        else countInner(str, i + 1, k, j + 1)
+    val countOuter: (String, Int, Int) => Int =
+      (str, i, k) =>
+        if str(i) == 0 then return 1
+        else countinner(str, i, k, 0).toInt
+    val f: (Int, String, Int) => String =
+      (n, str, counter) =>
+        if counter == n then str
+        else {
+          countOuter(str, 0, 0)
+          f(n, str, counter + 1)
         }
-    n=>
-      f(n,Array(1),1);
-
+    n =>
+      f(n, "1", 1);
 
 
 end `Look-and-say Sequence`
 
 object `Kolakoski Sequence`:
-  val kolakoskiNumber: Int => Int=
-    val count:(Array[Int],Int,Int,Int)=>Array[Int]=
-    (arr,counter,i,a)=>
-      if i>=arr(counter) then arr.add(a)
-      else count(arr,counter-1,i,a)
-    val f :(Int,Int,Array[Int])=>Int=
-      (n,counter,arr[2*n])=>
-      if arr(n) == 1 or arr(n)==2 then arr(n)
+  val kolakoskiNumber: Int => Int =
+    val count: (Array[Int], Int, Int, Int) => Array[Int] =
+      (arr, counter, i, a) =>
+        if i >= arr(counter) then arr.add(a)
+        else count(arr, counter - 1, i, a)
+    val f: (Int, Int, Array[Int]) => Int =
+      (n, counter, arr[2 * n])
+      =>
+      if arr(n) == 1 or arr(n) == 2 then arr(n)
       else
-        if counter%2==1 then a=1
-        else a=2
-        count(arr,counter-1,0,a);
-        f(n,counter+1,arr);
-    n=>
-      f(n,1,Array(1));
+        if counter % 2 == 1 then a = 1
+        else a = 2
+        count(arr, counter - 1, 0, a)
+        f(n, counter + 1, arr);
+    n =>
+      f(n, 1, Array(1));
 end `Kolakoski Sequence`
 
 end Homework

@@ -22,15 +22,15 @@ object BooleanOperatorsSpecification extends Properties("Boolean Operators") :
   }
 
   property("and") = forAll { (pair: (Boolean, Boolean)) =>
-    val (left, right) = pair
+    def pair = (left, right)
 
-    and(left, right) == (left && right)
+    and(pair) == (left && right)
   }
 
   property("or") = forAll { (pair: (Boolean, Boolean)) =>
-    val (left, right) = pair
+    def pair = (left, right)
 
-    or(left, right) == (left || right)
+    or(pair) == (left || right)
   }
 
 end BooleanOperatorsSpecification
@@ -65,7 +65,8 @@ object LookAndSaySequenceSpecification extends Properties("Look-and-say Sequence
 
 end LookAndSaySequenceSpecification
 
-end KolakoskiSequenceSpecification
+
+
 
 
 
