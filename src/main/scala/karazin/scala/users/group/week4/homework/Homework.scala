@@ -83,39 +83,39 @@ object Homework:
     infix def ∪(that: IntSet): IntSet =
       if !this.contains(that.elem) then this.include(that.elem)
       else {
-        ∪(that.left);
-        ∪(that.right);
-        this;
+        ∪(that.left)
+        ∪(that.right)
+        this
       }
 
     @targetName("intersection")
     infix def ∩(that: IntSet): IntSet =
       if !that.contains(elem) then this.delete(elem)
       else {
-        ∩ (that.left);
-        ∩(that.right);
-        this;
+        ∩ (that.left)
+        ∩(that.right)
+        this
       }
 
     @targetName("complement")
     infix def ∖(that: IntSet): IntSet =
       if that.contains(elem) then this.delete(elem)
       else {
-        ∖(that.left);
-        ∖(that.right);
-        this;
+        ∖(that.left)
+        ∖(that.right)
+        this
       }
 
     @targetName("disjunctive union")
     infix def ∆(that: IntSet): IntSet =
-      (this∪(that))\(this∩(that))
+      this∪that\this∩that
 
     override def toString: String = s"[$left - [$elem] - $right]"
 
     override def equals(other: Any): Boolean =
       if other.getClass!=this.getClass then false
       else {
-        if this ∆ (that) == Empty(Empty,Empty,Empty) then true
+        if this ∆ that == Empty(Empty,Empty,Empty) then true
         else false
       }
 
