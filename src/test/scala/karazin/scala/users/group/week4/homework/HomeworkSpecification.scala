@@ -5,7 +5,7 @@ import Prop.{forAll, propBoolean}
 import arbitraries.given
 import Homework._
 
-object HomeworkSpecification extends Properties("Homework"):
+object HomeworkSpecification extends Properties("Homework") :
 
   include(EmptySpecification)
   include(NonEmptySpecification)
@@ -14,7 +14,8 @@ object HomeworkSpecification extends Properties("Homework"):
 end HomeworkSpecification
 
 // Add additional cases if needed
-object EmptySpecification extends Properties("Empty"):
+object EmptySpecification extends Properties("Empty") :
+
   import arbitraries.{given Arbitrary[Int], given Arbitrary[NonEmpty], given Arbitrary[IntSet]}
 
   property("equals to Empty") = propBoolean {
@@ -64,7 +65,8 @@ object EmptySpecification extends Properties("Empty"):
 end EmptySpecification
 
 // Add additional cases if needed
-object NonEmptySpecification extends Properties("NonEmpty"):
+object NonEmptySpecification extends Properties("NonEmpty") :
+
   import arbitraries.{given Arbitrary[Int], given Arbitrary[NonEmpty], given Arbitrary[IntSet]}
 
   property("not equals to Empty") = forAll { (nonEmpty: NonEmpty) ⇒
@@ -80,34 +82,35 @@ object NonEmptySpecification extends Properties("NonEmpty"):
   }
 
   property("contains") = forAll { (nonEmpty: NonEmpty, element: Int) ⇒
-    !forAll (nonEmpty.contains(element)==false)
+    !forAll(!nonEmpty.contains(element))
   }
 
   property("remove") = forAll { (nonEmpty: NonEmpty, element: Int) ⇒
-    (this.remove(element)).contains(element)==false
+    this.remove(element).contains(element) == false
   }
 
   property("union") = forAll { (nonEmpty: NonEmpty, set: IntSet) ⇒
-    (nonEmpty ∪ set) !=Empty
+    (nonEmpty ∪ set) != Empty
   }
 
   property("intersection") = forAll { (nonEmpty: NonEmpty, set: IntSet) ⇒
-    nonEmpty ∩ set == set∩ nonEmpty
+    nonEmpty ∩ set == set ∩ nonEmpty
   }
 
   property("complement") = forAll { (nonEmpty: NonEmpty, set: IntSet) ⇒
-    if(nonEmpty==set)
-    nonEmpty ∖ set ==Empty
+    if (nonEmpty == set)
+      nonEmpty ∖ set == Empty
   }
 
   property("disjunctive") = forAll { (nonEmpty: NonEmpty, set: IntSet) ⇒
-    nonEmpty  ∆ set == set ∆ nonEmpty
+    nonEmpty ∆ set == set ∆ nonEmpty
   }
 
 end NonEmptySpecification
 
 // Add additional cases if needed
-object IntSetSpecification extends Properties("IntSet"):
+object IntSetSpecification extends Properties("IntSet") :
+
   import arbitraries.{given Arbitrary[Int], given Arbitrary[IntSet]}
 
   property("equals") = forAll { (set: IntSet) ⇒
